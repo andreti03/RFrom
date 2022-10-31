@@ -1,0 +1,49 @@
+
+<h1>TechCamp ReactiveForm</h1>
+<form (ngSubmit)="onSubmit()" [formGroup]="contactForm">
+
+  <!-- ***********************  NOMBRE **************************  -->
+  <div class="mb-4">
+    <label for="name" class="form-label">Nombre</label>
+    <input type="text" class="form-control" id="name" name="name" required formControlName="name">
+    <div *ngIf="contactForm.get('name')?.touched && contactForm.get('name')?.errors?.['required']"
+    class= "alert alert-danger">El nombre no puede quedar vacío.</div>
+    <div *ngIf="contactForm.get('name')?.touched && contactForm.get('name')?.errors?.['minlength']"
+    class= "alert alert-danger">Debe tener como mínimo {{contactForm.get('name')?.errors?.['minlength'].requiredLength}} caracteres</div>
+  </div>
+
+  <!-- ***********************  CHECK ************************** -->
+  <div class="mb-4 form-check">
+    <label for=checkInt class="form-label">¿Estas emocionado por aprender?</label>
+    <input type="checkbox" class="form-check-input" id="checkInt" name="checkInt" required formControlName="checkInt">
+    <div *ngIf="contactForm.get('checkInt')?.touched && contactForm.get('checkInt')?.errors?.['required']"
+    class= "alert alert-danger">El campo no puede quedar vacío.</div>
+  </div>
+
+  <!-- ***********************  FAVORITE ************************** -->
+  <div class="mb-4">
+    <label for="department" class="form-label">¿Cual es tu area favorita?</label>
+    <select name="department" id="department" class= "form-select form-select-sm" formControlName="department">
+     <option selected>Todavia no se</option>
+     <option value= "Backend" >Backend</option>
+     <option value= "FrontEnd">FrontEnd</option>
+     <option value= "FullStack">FullStack</option>
+    </select>
+  </div>
+
+  <!-- ***********************  COMENTARIOS ************************** -->
+  <div class="mb-4">
+    <label for="comment" class= "form-label">¿Que tal te ha parecido esta experiencia?</label>
+    <textarea class="form-control" name= "comment" id="comment" rows="4" placeholder="Deja tu comentario..."
+      formControlName="comment" required></textarea>
+    <div *ngIf="contactForm.get('comment')?.touched && contactForm.get('comment')?.errors?.['required']"
+    class= "alert alert-danger">El campo no puede quedar vacío.</div>
+    <div *ngIf="contactForm.get('comment')?.touched && contactForm.get('comment')?.errors?.['maxlength']"
+    class= "alert alert-danger">Debe tener como máximo {{contactForm.get('comment')?.errors?.['maxlength'].requiredLength}} caracteres</div>
+  </div>
+
+  <!-- ***********************  BOTON ************************** -->
+  <div class="d-grid gap-2 col-4 float-end">
+    <button type="submit" class= "btn btn-info btn-lg" [disabled]="contactForm.invalid">Confirmar</button>
+  </div>
+</form>
